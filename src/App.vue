@@ -1,23 +1,73 @@
 <template>
-    <div class="container">
-        <google-map></google-map>
+    <div>
+
+        <div id="mySidenav" class="sidenav">
+            <div class="w-100" style="height: 200px">
+                <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
+                <img src="/assets/img/map.jpg" class="w-100 h-100">
+            </div>
+            <a href="javascript:void(0)" :class="'option '+ (view==1?'active':'')" @click="show(1)">Google Map</a>
+            <a href="javascript:void(0)" :class="'option '+ (view==2?'active':'') " @click="show(2)">D3 JS</a>
+            <a href="javascript:void(0)" :class="'option '+ (view==3?'active':'')" @click="show(3)">Here</a>
+        </div>
+
+        <div id="main" class="container-fluid" @click="closeByMain()">
+            <header class="row p-2 align-items-center">
+                <div class="col-1 col-md-2">
+                    <span style="font-size:30px;cursor:pointer" @click.stop="openNav()">&#9776; <span class="d-md-inline d-none">Menu</span></span>
+                </div>
+                <h3 class="col-9 col-md-8  pt-1 text-center text">
+                    Géolocalisation <i class="fas fa-map-marked"></i>
+                </h3>
+                <div class="col-1 col-md-2  text-right">
+                    <img src="/assets/img/icon.png" class="icon" alt="" >
+                </div>
+            </header>
+            <section class="map-container row">
+                <google-map></google-map>
+            </section>
+        </div>
+
     </div>
 </template>
 
 <script>
     import GoogleMap from './components/GoogleMap'
 
-
     export default {
         name: 'app',
         data() {
             return {
+                view : 1,
+                nav : false
             }
         },
+        methods : {
+            openNav : function () {
+                this.nav = true
+                document.getElementById("mySidenav").style.width = "250px";
+                document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+            },
+            closeNav: function () {
+                this.nav = false
+                document.getElementById("mySidenav").style.width = "0";
+                document.body.style.backgroundColor = "white";
+            },
+            show  :function (view) {
+                this.view = view;
+                this.closeNav();
+            },
+            closeByMain:  function () {
+                if (this.nav == true)
+                    this.closeNav()
+            }
+        },
+
         components : {
             GoogleMap
         }
     }
+
 </script>
 
 <style lang="scss">
@@ -29,6 +79,107 @@
     body {
         font-family: 'Raleway', sans-serif;
         font-size: 1rem;
+        transition: background-color .5s;
+    }
+
+    header {
+        height: 10vh;
+        background-color: #fafafa;
+        box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .map-container {
+        height: 90vh;
+    }
+
+    .text {
+        -webkit-animation: text-animation 5s infinite  forwards;
+        -o-animation: text-animation 5s infinite forwards;
+        animation: text-animation 5s infinite forwards;
+        font-size: 1.5rem;
+
+    }
+
+    @keyframes text-animation {
+        0% {
+            color: #6f42c1;
+        }
+
+        50% {
+            color: black;
+        }
+
+        100% {
+            color: #6f42c1;
+        }
+    }
+
+
+    .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        transition: 0.5s;
+    }
+
+    .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        display: block;
+        transition: 0.3s;
+        white-space: nowrap;
+        color: #f1f1f1;
+    }
+
+    .sidenav .option:hover {
+        background-color: #6f42c1;
+    }
+
+
+    .active {
+        background-color: #6f42c1;
+    }
+
+    .sidenav .closebtn {
+        color: #6f42c1 ;
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+    #main {
+        height: 100vh;
+        transition: margin-left .5s;
+    }
+
+    .icon {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+
+    @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
+    }
+
+    @media (min-width: 992px) {
+        .icon {
+            width: 2rem;
+            height: 2rem;
+        }
+
+        .text {
+            font-size: 2rem;
+        }
     }
 
 </style>
