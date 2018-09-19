@@ -1,14 +1,13 @@
 <template>
     <div>
 
-        <div id="mySidenav" class="sidenav">
+        <div id="mySidenav" class="sidenav" style="z-index: 100000">
             <div class="w-100" style="height: 200px">
                 <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
-                <img src="/assets/img/map.jpg" class="w-100 h-100">
+                <img src="assets/img/map.jpg" class="w-100 h-100">
             </div>
-            <a href="javascript:void(0)" :class="'option '+ (view==1?'active':'')" @click="show(1)">Google Map</a>
-            <a href="javascript:void(0)" :class="'option '+ (view==2?'active':'') " @click="show(2)">D3 JS</a>
-            <a href="javascript:void(0)" :class="'option '+ (view==3?'active':'')" @click="show(3)">Here</a>
+            <a href="javascript:void(0)" :class="'option '+ (view==1?'active':'')" @click="show(1)">Here</a>
+            <a href="javascript:void(0)" :class="'option '+ (view==2?'active':'')" @click="show(2)">MapQuest</a>
         </div>
 
         <div id="main" class="container-fluid" @click="closeByMain()">
@@ -24,7 +23,8 @@
                 </div>
             </header>
             <section class="map-container row">
-                <google-map></google-map>
+                <here v-if="view==1"></here>
+                <map-quest v-if="view==2"></map-quest>
             </section>
         </div>
 
@@ -32,7 +32,8 @@
 </template>
 
 <script>
-    import GoogleMap from './components/GoogleMap'
+    import Here from './components/Here'
+    import MapQuest from './components/MapQuest'
 
     export default {
         name: 'app',
@@ -64,7 +65,8 @@
         },
 
         components : {
-            GoogleMap
+            Here,
+            MapQuest
         }
     }
 

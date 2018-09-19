@@ -4,7 +4,7 @@
 
 <script>
     export default {
-        name: "GoogleMap",
+        name: "Here",
         mounted : function () {
             var platform = new H.service.Platform({
                 'app_id': 'nXoqqsGScgvXbxl6eBmR',
@@ -14,7 +14,9 @@
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
 
-                    alert(position.coords.longitude+" "+position.coords.latitude)
+                    var lon = position.coords.longitude
+                    var lat = position.coords.latitude
+
                     var maptypes = platform.createDefaultLayers();
 
                     // Instantiate (and display) a map object:
@@ -22,8 +24,8 @@
                         document.getElementById('map'),
                         maptypes.normal.map,
                         {
-                            zoom: 10,
-                            center: { lng: position.coords.longitude, lat: position.coords.latitude }
+                            zoom: 15,
+                            center: { lng: lon, lat: lat }
                         });
 
                 });
