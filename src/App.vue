@@ -19,7 +19,7 @@
                     Géolocalisation <i class="fas fa-map-marked"></i>
                 </h3>
                 <div class="col-1 col-md-2  text-right">
-                    <img src="/assets/img/icon.png" class="icon" alt="" >
+                    <img src="assets/img/icon.png" class="icon" alt="" >
                 </div>
             </header>
             <section class="map-container row">
@@ -85,9 +85,9 @@
     }
 
     header {
+        border-bottom: 2px solid #6f42c1 ;
         height: 10vh;
         background-color: #fafafa;
-        box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.5);
     }
 
     .map-container {
