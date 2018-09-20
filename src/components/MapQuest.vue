@@ -5,29 +5,24 @@
 <script>
     export default {
         name: "MapQuest",
+        props : {
+            lon : 0,
+            lat : 0
+        },
         mounted : function () {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-
-                    var lon = position.coords.longitude
-                    var lat = position.coords.latitude
 
 
-                    L.mapquest.key = 'lYrP4vF3Uk5zgTiGGuEzQGwGIVDGuy24';
+            L.mapquest.key = 'lYrP4vF3Uk5zgTiGGuEzQGwGIVDGuy24';
 
-                    var map = L.mapquest.map('map', {
-                        center: [lat, lon],
-                        layers: L.mapquest.tileLayer('map'),
-                        zoom: 12
-                    });
+            var map = L.mapquest.map('map',
+                {
+                center: [this.lat, this.lon],
+                layers: L.mapquest.tileLayer('map'),
+                zoom: 12
+                }
+            );
 
-                    map.addControl(L.mapquest.control());
-
-
-                });
-            } else {
-                alert("Activez la géolocalisation sur votre navigateur")
-            }
+            map.addControl(L.mapquest.control());
         }
     }
 </script>

@@ -8,6 +8,7 @@
             </div>
             <a href="javascript:void(0)" :class="'option '+ (view==1?'active':'')" @click="show(1)">Here</a>
             <a href="javascript:void(0)" :class="'option '+ (view==2?'active':'')" @click="show(2)">MapQuest</a>
+            <a href="javascript:void(0)" :class="'option '+ (view==3?'active':'')" @click="show(3)">Google map</a>
         </div>
 
         <div id="main" class="container-fluid" @click="closeByMain()">
@@ -23,8 +24,9 @@
                 </div>
             </header>
             <section class="map-container row">
-                <here v-if="view==1"></here>
-                <map-quest v-if="view==2"></map-quest>
+                <here :lat="lat" :lon="lon" v-if="view==1"></here>
+                <map-quest :lat="lat" :lon="lon" v-if="view==2"></map-quest>
+                <google-map :lat="lat" :lon="lon" v-if="view==3"></google-map>
             </section>
         </div>
 
@@ -34,13 +36,34 @@
 <script>
     import Here from './components/Here'
     import MapQuest from './components/MapQuest'
+    import GoogleMap from './components/GoogleMap'
 
     export default {
         name: 'app',
         data() {
             return {
-                view : 1,
-                nav : false
+                view : 0,
+                nav : false,
+
+                lon : 0,
+                lat : 0
+            }
+        },
+        beforeMount : function() {
+            var a = this;
+
+            if (navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        a.lon = position.coords.longitude;
+                        a.lat = position.coords.latitude;
+                        a.view =1
+                    }
+                );
+            }else
+            {
+                alert("Veillez activer la geolocalisation sur votre navigateur");
+                this.destroy()
             }
         },
         methods : {
@@ -66,7 +89,8 @@
 
         components : {
             Here,
-            MapQuest
+            MapQuest,
+            GoogleMap
         }
     }
 
