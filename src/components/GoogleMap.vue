@@ -19,24 +19,6 @@
 </script>
 
 <style scoped>
-    #map h1 {
-        text-align: center;
-    }
-    #map header {
-        background-color: pink;
-        padding: 20px;
-    }
-
-    #map footer {
-        background-color: grey;
-        padding:20px;
-        text-align: center;
-    }
-
-    #map .main_body {
-        height: 800px;
-    }
-
     #map {
         height: 100%;
         width: 100%;

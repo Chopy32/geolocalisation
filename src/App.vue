@@ -9,12 +9,13 @@
             <a href="javascript:void(0)" :class="'option '+ (view==1?'active':'')" @click="show(1)">Here</a>
             <a href="javascript:void(0)" :class="'option '+ (view==2?'active':'')" @click="show(2)">MapQuest</a>
             <a href="javascript:void(0)" :class="'option '+ (view==3?'active':'')" @click="show(3)">Google map</a>
+            <a href="javascript:void(0)" :class="'option '+ (view==4    ?'active':'')" @click="show(4)">Open Street map</a>
         </div>
 
         <div id="main" class="container-fluid" @click="closeByMain()">
             <header class="row p-2 align-items-center">
                 <div class="col-1 col-md-2">
-                    <span style="font-size:30px;cursor:pointer" @click.stop="openNav()">&#9776; <span class="d-md-inline d-none">Menu</span></span>
+                    <span style="font-size:1rem;cursor:pointer" @click.stop="openNav()">&#9776; <span class="d-md-inline d-none">Menu</span></span>
                 </div>
                 <h3 class="col-9 col-md-8  pt-1 text-center text">
                     Géolocalisation <i class="fas fa-map-marked"></i>
@@ -27,6 +28,7 @@
                 <here :lat="lat" :lon="lon" v-if="view==1"></here>
                 <map-quest :lat="lat" :lon="lon" v-if="view==2"></map-quest>
                 <google-map :lat="lat" :lon="lon" v-if="view==3"></google-map>
+                <open-street-map :lat="lat" :lon="lon" v-if="view==4"></open-street-map>
             </section>
         </div>
 
@@ -37,6 +39,7 @@
     import Here from './components/Here'
     import MapQuest from './components/MapQuest'
     import GoogleMap from './components/GoogleMap'
+    import OpenStreetMap from './components/OpenStreetMap'
 
     export default {
         name: 'app',
@@ -63,7 +66,8 @@
             }else
             {
                 alert("Veillez activer la geolocalisation sur votre navigateur");
-                this.destroy()
+                a.lat = 3.8480;
+                a.lon = 11.5021
             }
         },
         methods : {
@@ -90,7 +94,9 @@
         components : {
             Here,
             MapQuest,
-            GoogleMap
+            GoogleMap,
+            OpenStreetMap
+
         }
     }
 
@@ -122,7 +128,7 @@
         -webkit-animation: text-animation 5s infinite  forwards;
         -o-animation: text-animation 5s infinite forwards;
         animation: text-animation 5s infinite forwards;
-        font-size: 1.5rem;
+        font-size: 1.1rem;
 
     }
 
@@ -156,7 +162,7 @@
     .sidenav a {
         padding: 8px 8px 8px 32px;
         text-decoration: none;
-        font-size: 25px;
+        font-size: 1rem;
         display: block;
         transition: 0.3s;
         white-space: nowrap;
@@ -187,8 +193,8 @@
     }
 
     .icon {
-        width: 1.5rem;
-        height: 1.5rem;
+        width: 1rem;
+        height: 1rem;
     }
 
 
@@ -199,13 +205,10 @@
 
     @media (min-width: 992px) {
         .icon {
-            width: 2rem;
-            height: 2rem;
+            width: 1.2rem;
+            height: 1.2rem;
         }
 
-        .text {
-            font-size: 2rem;
-        }
     }
 
 </style>

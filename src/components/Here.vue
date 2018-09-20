@@ -1,6 +1,5 @@
 <template>
     <div class="h-100 w-100 text-center">
-
         <div class="buttons text-center" style="z-index: 10">
             <button class="btn btn-primary m-2">Zoom +</button>
             <button class="btn btn-danger m-2">Zoom -</button>
